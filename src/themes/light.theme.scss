@@ -1,0 +1,9 @@
+$background-primary: #f2f3f5;
+$background-secondary: #cbcccf;
+$text-normal: #2e3338;
+$color-primary: #3a97a5;
+$color-secondary: #a54377;
+
+@import "../components/**/*.scss";
+@import "../views/**/*.scss";
+@import "../windows/**/*.scss";

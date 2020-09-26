@@ -1,0 +1,64 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: NodeGui CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        node-version: [14]
+    steps:
+      - uses: actions/checkout@v2.3.1
+      - name: Update apt
+        if: ${{ runner.os == 'Linux' }}
+        run: sudo apt update
+      - name: Install apt libs
+        if: ${{ runner.os == 'Linux' }}
+        run: sudo apt install -y mesa-common-dev libglu1-mesa-dev libxkbcommon-x11-0
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2.1.1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Fast install dependencies and build
+        env:
+          SKIP_BUILD: 1
+        run: npm ci
+      - name: Pack binaries
+        run: npm run package
+      - name: Upload AppImage
+        uses: actions/upload-artifact@v2
+        if: ${{ runner.os == 'Linux' }}
+        with:
+          name: Linux AppImage
+          path: ${{ github.workspace }}/deploy/linux/build/NodeGui/NodeGui-x86_64.AppImage
+      - name: Upload Windows build
+        uses: actions/upload-artifact@v2
+        if: ${{ runner.os == 'Windows' }}
+        with:
+          name: Windows package
+          path: ${{ github.workspace }}/deploy/win32/build/NodeGui/
+      - name: Upload Mac application
+        uses: actions/upload-artifact@v2
+        if: ${{ runner.os == 'macOS' }}
+        with:
+          name: macOS application
+          path: ${{ github.workspace }}/deploy/darwin/build/NodeGui.app
+      - name: Pack Debian package
+        run: npm run package:deb
+        if: ${{ runner.os == 'Linux' }}
+      - name: Upload Debian package
+        uses: actions/upload-artifact@v2
+        if: ${{ runner.os == 'Linux' }}
+        with:
+          name: Linux Debian package
+          path: ${{ github.workspace }}/nodegui-boilerplate.deb

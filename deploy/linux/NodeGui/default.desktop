@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=NodeGui boilerplate
+Exec=AppRun %F
+Icon=default
+Comment=A NodeGui boilerplate project
+Terminal=false
+StartupWMClass=NodeGui
+Version=1.0

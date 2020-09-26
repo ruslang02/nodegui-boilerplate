@@ -1,0 +1,9 @@
+Package: nodegui-boilerplate
+Version: 0.1.0
+Section: net
+Priority: optional
+Homepage: https://github.com/ruslang02/nodegui-boilerplate
+Architecture: amd64
+Installed-Size: 1024
+Maintainer: Ruslan Garifullin <ruslan.g2002@gmail.com>
+Description: A boilerplate app on NodeGui.

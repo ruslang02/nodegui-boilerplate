@@ -1,0 +1,10 @@
+*.log
+*.tsbuildinfo
+*.tgz
+*.deb
+
+node_modules
+deploy/*/build
+dist
+deb-struct
+out
