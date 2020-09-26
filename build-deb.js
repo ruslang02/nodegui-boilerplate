@@ -6,7 +6,7 @@ const CONFIG_FILE = path.join(__dirname, "deploy", "config.json");
 const { appName } = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
 const safeAppName = appName.replace(' ', '').toLowerCase();
 
-const BUILD_DIR = path.join(__dirname, "deploy", "linux", "build", appName);
+const BUILD_DIR = path.join(__dirname, "deploy", "linux", appName);
 const LIB_DIR = path.join(__dirname, "deb-struct", "usr", "lib");
 const BIN_DIR = path.join(__dirname, "deb-struct", "usr", "bin", appName);
 const paths = [

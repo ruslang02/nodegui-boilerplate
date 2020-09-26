@@ -21,6 +21,7 @@
   },
   "files": [
     "/assets",
+    "/locales",
     "/src",
     ".npmrc",
     "assets.d.ts",
@@ -31,18 +32,12 @@
   "dependencies": {
     "@nodegui/nodegui": "^0.25.0",
     "env-paths": "^2.2.0",
-    "i18n": "^0.13.2",
-    "node-notifier": "^8.0.0"
+    "i18n": "^0.13.2"
   },
   "devDependencies": {
     "@nodegui/packer": "^1.4.1",
     "@types/i18n": "^0.8.7",
-    "@types/markdown-it": "^10.0.2",
     "@types/node": "^14.6.2",
-    "@types/node-notifier": "^8.0.0",
-    "@types/pngjs": "^3.4.2",
-    "@types/twemoji": "^12.1.1",
-    "@types/ws": "^7.2.6",
     "@typescript-eslint/eslint-plugin": "^4.1.1",
     "@typescript-eslint/parser": "^4.1.1",
     "clean-webpack-plugin": "^3.0.0",

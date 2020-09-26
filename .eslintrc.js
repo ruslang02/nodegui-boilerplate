@@ -6,9 +6,6 @@ module.exports = {
   extends: [
     'airbnb-base',
   ],
-  globals: {
-    __BUILDNUM__: 'readonly',
-  },
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 12,
@@ -33,7 +30,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        paths: ['src', 'worker', 'node_modules'],
+        paths: ['src', 'node_modules'],
         extensions: ['.js', '.json', '.ts'],
       }
     },
