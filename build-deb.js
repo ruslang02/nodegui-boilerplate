@@ -31,7 +31,6 @@ process.execSync('cp ./control ./deb-struct/DEBIAN/control');
 
 console.log("Copying build directory...");
 process.execSync(`cp -R "${BUILD_DIR}" "${LIB_DIR}"`);
-process.execSync(`cp -R ./assets "./deb-struct/usr/lib/${appName}"`);
 process.execSync(`mv "./deb-struct/usr/lib/${appName}" ./deb-struct/usr/lib/${safeAppName}`);
 
 console.log("Copying symlink...");

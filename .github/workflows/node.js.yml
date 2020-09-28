@@ -61,4 +61,4 @@ jobs:
         if: ${{ runner.os == 'Linux' }}
         with:
           name: Linux Debian package
-          path: ${{ github.workspace }}/nodegui-boilerplate.deb
+          path: ${{ github.workspace }}/nodegui.deb
