@@ -41,8 +41,6 @@ export class RootWindow extends QMainWindow {
   protected initializeWindow() {
     this.setWindowTitle('NodeGui boilerplate');
     this.setObjectName('RootWindow');
-    this.setMinimumSize(1000, 500);
-    this.resize(1200, 600);
     this.setAttribute(WidgetAttribute.WA_AlwaysShowToolTips, true);
     this.setCentralWidget(this.root);
     this.root.addWidget(this.primaryView);

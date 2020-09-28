@@ -1,20 +1,23 @@
-const path = require("path");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const path = require('path');
+const fs = require('fs');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { ProvidePlugin } = require("webpack");
+const { ProvidePlugin } = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const globImporter = require('node-sass-glob-importer');
 
 module.exports = (_env, argv) => {
   const isDev = argv.mode !== 'production';
+  const themes = Object.fromEntries(fs.readdirSync('./src/themes').map(value => [
+    value.replace('.scss', ''),
+    './src/themes/' + value
+  ]));
   return {
-    mode: isDev ? "development" : "production",
+    mode: isDev ? 'development' : 'production',
     entry: {
-      "index.js": "./src",
-      'light.theme': './src/themes/light.theme.scss',
-      'dark.theme': './src/themes/dark.theme.scss',
-      // 'cyan.theme': './src/themes/cyan.theme.scss',
+      'index.js': './src',
+      ...themes
     },
     optimization: {
       minimize: !isDev,
@@ -24,15 +27,15 @@ module.exports = (_env, argv) => {
         }
       })],
     },
-    target: "node",
+    target: 'node',
     node: {
       __dirname: false,
       __filename: false,
-      fs: "empty",
+      fs: 'empty',
     },
     output: {
-      path: path.resolve(__dirname, "dist"),
-      filename: "[name]",
+      path: path.resolve(__dirname, 'dist'),
+      filename: '[name]',
     },
     module: {
       exprContextCritical: false,
@@ -40,10 +43,12 @@ module.exports = (_env, argv) => {
         {
           test: /\.tsx?$/,
           use: [
+            'thread-loader',
             {
               loader: 'ts-loader',
               options: {
-                transpileOnly: true
+                transpileOnly: true,
+                happyPackMode: true
               }
             }
           ]
@@ -52,8 +57,8 @@ module.exports = (_env, argv) => {
           test: /\.(png|jpe?g|gif|svg)$/i,
           use: [
             {
-              loader: "file-loader",
-              options: { publicPath: "dist" },
+              loader: 'file-loader',
+              options: { publicPath: 'dist' },
             },
           ],
         },
@@ -78,16 +83,16 @@ module.exports = (_env, argv) => {
           test: /\.node$/,
           use: [
             {
-              loader: "native-addon-loader",
-              options: { name: "[name]-[hash].[ext]" },
+              loader: 'native-addon-loader',
+              options: { name: '[name].[ext]' },
             },
           ],
         },
       ],
     },
     resolve: {
-      extensions: [".tsx", ".ts", ".js", ".jsx", ".json"],
-      mainFields: ["main"],
+      extensions: ['.tsx', '.ts', '.js', '.jsx', '.json'],
+      mainFields: ['main'],
       alias: {
         'fetch': path.join(__dirname, '../node_modules', 'whatwg-fetch', 'fetch.js'),
       }
